@@ -675,6 +675,9 @@ function ResultsView({
               </button>
             </>
           )}
+          <button className="fcp-export-btn" onClick={onPushToSupabase} style={{ borderColor: '#2A7A52', color: '#2A7A52' }}>
+            <Database size={13} /> Sync Supabase
+          </button>
           <button className="fcp-export-btn" onClick={() => exportCSV(results)}>
             <Download size={13} /> CSV
           </button>
@@ -1196,6 +1199,22 @@ export default function Home() {
     pauseRef.current = !pauseRef.current
     setPaused(pauseRef.current)
     addLog(pauseRef.current ? '⏸ En pause' : '▶ Reprise')
+  }
+  const pushToSupabase = async () => {
+    if (!results.length) return
+    addLog(`🔄 Sauvegarde de ${results.length} résultats dans Supabase…`)
+    try {
+      const res = await fetch('/api/push', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ results, supabaseUrl, supabaseKey })
+      })
+      const data = await res.json()
+      if (data.error) throw new Error(data.error)
+      addLog(`✅ ${data.saved} résultats sauvegardés — maintenant disponibles sur tous les appareils`)
+    } catch (e: any) {
+      addLog(`❌ ${e.message}`)
+    }
   }
   const onStop = () => {
     stopRef.current = true; pauseRef.current = false
