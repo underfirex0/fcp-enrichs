@@ -601,7 +601,7 @@ function ResultsView({
       r.city.toLowerCase().includes(q) ||
       (r.dirigeant || '').toLowerCase().includes(q) ||
       (r.filiere_principale || '').toLowerCase().includes(q)
-    const matchType = typeFilter === 'all' || r.type_entreprise === typeFilter
+    const matchType = typeFilter === 'all' || r.type_entreprise === typeFilter || (r.type_entreprise || '').startsWith(typeFilter)
     const matchFiliere = filiereFilter === 'all' || r.filiere_principale === filiereFilter
     return matchSearch && matchType && matchFiliere
   })
@@ -646,27 +646,22 @@ function ResultsView({
           />
         </div>
 
-        <div className="fcp-chips">
-          <span style={{ fontSize: 11.5, color: '#B8B2AA', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Type:</span>
-          <button className={`fcp-chip ${typeFilter === 'all' ? 'active' : ''}`} onClick={() => setTypeFilter('all')}>Tous</button>
-          {uniqueTypes.map(t => (
-            <button key={t} className={`fcp-chip ${typeFilter === t ? 'active' : ''}`} onClick={() => setTypeFilter(t)}>
-              {t}
-            </button>
-          ))}
-        </div>
-
-        {uniqueFilieres.length > 1 && (
-          <div className="fcp-chips">
-            <span style={{ fontSize: 11.5, color: '#B8B2AA', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Filière:</span>
-            <button className={`fcp-chip ${filiereFilter === 'all' ? 'active' : ''}`} onClick={() => setFiliereFilter('all')}>Toutes</button>
-            {uniqueFilieres.map(f => (
-              <button key={f} className={`fcp-chip ${filiereFilter === f ? 'active' : ''}`} onClick={() => setFiliereFilter(f)}>
-                {f}
-              </button>
-            ))}
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+            <span style={{ fontSize: 11.5, color: '#B8B2AA', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Type</span>
+            <select value={typeFilter} onChange={e => setTypeFilter(e.target.value)} style={{ padding: '7px 30px 7px 12px', border: '1.5px solid #E8E5E0', borderRadius: 9, background: '#fff', fontSize: 13, color: '#1B1916', outline: 'none', cursor: 'pointer', fontFamily: 'inherit', appearance: 'none' }}>
+              <option value="all">Tous les types</option>
+              {TYPES_LIST.map(t => <option key={t} value={t}>{t}</option>)}
+            </select>
           </div>
-        )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+            <span style={{ fontSize: 11.5, color: '#B8B2AA', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Filière</span>
+            <select value={filiereFilter} onChange={e => setFiliereFilter(e.target.value)} style={{ padding: '7px 30px 7px 12px', border: '1.5px solid #E8E5E0', borderRadius: 9, background: '#fff', fontSize: 13, color: '#1B1916', outline: 'none', cursor: 'pointer', fontFamily: 'inherit', appearance: 'none' }}>
+              <option value="all">Toutes les filières</option>
+              {FILIERES_LIST.map(f => <option key={f} value={f}>{f}</option>)}
+            </select>
+          </div>
+        </div>
 
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
           {running && (
