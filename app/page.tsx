@@ -1145,7 +1145,10 @@ export default function Home() {
   }
 
   const start = async () => {
-    if (!anthropicKey || !tavilyKey) { addLog('❌ Clés Anthropic/Tavily manquantes'); return }
+    if ((!anthropicKey && !envConfig.anthropic) || (!tavilyKey && !envConfig.tavily)) {
+  alert('❌ Clés API manquantes !\n\nVa sur Vercel → Settings → Environment Variables\net ajoute ANTHROPIC_API_KEY et TAVILY_API_KEY')
+  return
+}
     const companies = parsedFromFile ?? parseRaw(raw)
     const done = new Set(results.map(r => r.code))
     const todo = companies.filter(c => !done.has(c.code))
