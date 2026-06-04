@@ -1271,11 +1271,12 @@ export default function Home() {
           />
         ) : (
           <ResultsView
-            results={results} logs={logs}
-            running={running} paused={paused}
-            onPause={onPause} onStop={onStop}
-            onSelect={setSelected} selected={selected}
-          />
+          results={results} logs={logs}
+          running={running} paused={paused}
+          onPause={onPause} onStop={onStop}
+          onSelect={setSelected} selected={selected}
+          onPushToSupabase={pushToSupabase}
+        />
         )}
       </main>
       <DetailPanel result={selected} onClose={() => setSelected(null)} />
