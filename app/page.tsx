@@ -579,11 +579,12 @@ function ConfigView({
 
 // ── Results View ──────────────────────────────────────────────────────────
 function ResultsView({
-  results, logs, running, paused, onPause, onStop, onSelect, selected,
+  results, logs, running, paused, onPause, onStop, onSelect, selected, onPushToSupabase,
 }: {
   results: EnrichedResult[]; logs: string[]; running: boolean; paused: boolean
   onPause: () => void; onStop: () => void
   onSelect: (r: EnrichedResult | null) => void; selected: EnrichedResult | null
+  onPushToSupabase: () => void
 }) {
   const [search, setSearch] = useState('')
   const [typeFilter, setTypeFilter] = useState('all')
