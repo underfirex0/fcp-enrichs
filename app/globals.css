@@ -1,0 +1,415 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: #F4F2EE;
+  color: #1B1916;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D4CFC8; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #B8B2AA; }
+
+/* ── Sidebar ── */
+.fcp-sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: #1B1916;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+.fcp-logo {
+  padding: 28px 20px 20px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.fcp-logo span { color: #C8622A; }
+.fcp-nav { padding: 12px 10px; flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.fcp-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: rgba(255,255,255,0.5);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  transition: all 0.15s;
+  position: relative;
+}
+.fcp-nav-item:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.06); }
+.fcp-nav-item.active { color: #fff; background: rgba(200,98,42,0.18); }
+.fcp-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 25%; bottom: 25%;
+  width: 2.5px;
+  background: #C8622A;
+  border-radius: 0 2px 2px 0;
+}
+.fcp-nav-badge {
+  margin-left: auto;
+  background: rgba(200,98,42,0.3);
+  color: #C8622A;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 20px;
+}
+
+/* ── Sidebar progress ── */
+.fcp-progress-card {
+  margin: 0 10px 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.fcp-progress-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+.fcp-progress-nums { font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+.fcp-progress-bar { height: 3px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
+.fcp-progress-fill { height: 100%; background: #C8622A; border-radius: 99px; transition: width 0.4s ease; }
+.fcp-progress-sub { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 6px; font-variant-numeric: tabular-nums; }
+
+/* ── Sidebar status dots ── */
+.fcp-status-section { padding: 10px 14px 20px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: auto; display: flex; flex-direction: column; gap: 6px; }
+.fcp-status-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.35); }
+.fcp-status-dot { width: 6px; height: 6px; border-radius: 99px; flex-shrink: 0; }
+.fcp-status-dot.on { background: #2A7A52; box-shadow: 0 0 6px rgba(42,122,82,0.6); }
+.fcp-status-dot.off { background: rgba(255,255,255,0.15); }
+
+/* ── Cards ── */
+.fcp-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 2px rgba(27,25,22,0.04), 0 4px 12px rgba(27,25,22,0.06);
+  margin-bottom: 16px;
+}
+.fcp-card-title { font-size: 13px; font-weight: 600; color: #9E9994; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 16px; }
+
+/* ── Inputs ── */
+.fcp-field { margin-bottom: 14px; }
+.fcp-field:last-child { margin-bottom: 0; }
+.fcp-label { display: block; font-size: 12.5px; font-weight: 500; color: #6B6560; margin-bottom: 6px; }
+.fcp-input {
+  width: 100%;
+  padding: 9px 13px;
+  border: 1.5px solid #E8E5E0;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #1B1916;
+  background: #FAFAF9;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.15s;
+}
+.fcp-input:focus { border-color: #C8622A; background: #fff; box-shadow: 0 0 0 3px rgba(200,98,42,0.1); }
+.fcp-input::placeholder { color: #C4BEB8; }
+.fcp-textarea { min-height: 180px; resize: vertical; line-height: 1.6; font-family: 'DM Mono', monospace; font-size: 12px; }
+
+/* ── Format hint ── */
+.fcp-hint {
+  background: #F4F2EE;
+  border: 1px solid #E8E5E0;
+  border-radius: 8px;
+  padding: 10px 13px;
+  font-size: 12px;
+  color: #9E9994;
+  margin-bottom: 12px;
+  line-height: 1.7;
+  font-family: 'DM Mono', monospace;
+}
+.fcp-hint strong { color: #6B6560; font-weight: 600; }
+
+/* ── Batch picker ── */
+.fcp-batch-group { display: flex; gap: 8px; }
+.fcp-batch-btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: 1.5px solid #E8E5E0;
+  background: #FAFAF9;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6B6560;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.fcp-batch-btn:hover { border-color: #C8622A; color: #C8622A; }
+.fcp-batch-btn.active { border-color: #C8622A; background: #C8622A; color: #fff; }
+
+/* ── Launch button ── */
+.fcp-launch {
+  width: 100%;
+  padding: 15px 24px;
+  background: #1B1916;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s;
+  letter-spacing: -0.2px;
+  margin-top: 8px;
+}
+.fcp-launch:hover:not(:disabled) { background: #C8622A; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(200,98,42,0.35); }
+.fcp-launch:active:not(:disabled) { transform: translateY(0); }
+.fcp-launch:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Control buttons (pause/stop) ── */
+.fcp-ctrl-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #E8E5E0;
+  background: #fff;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #6B6560;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.fcp-ctrl-btn:hover { border-color: #1B1916; color: #1B1916; }
+.fcp-ctrl-btn.danger:hover { border-color: #B84040; color: #B84040; }
+
+/* ── Search ── */
+.fcp-search-wrap { position: relative; }
+.fcp-search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: #B8B2AA; pointer-events: none; }
+.fcp-search { padding: 8px 12px 8px 34px; border: 1.5px solid #E8E5E0; border-radius: 9px; background: #fff; font-size: 13px; color: #1B1916; outline: none; transition: all 0.15s; font-family: inherit; width: 220px; }
+.fcp-search:focus { border-color: #C8622A; box-shadow: 0 0 0 3px rgba(200,98,42,0.1); }
+
+/* ── Filter chips ── */
+.fcp-chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.fcp-chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1.5px solid #E8E5E0;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B6560;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.fcp-chip:hover { border-color: #1B1916; color: #1B1916; }
+.fcp-chip.active { border-color: #1B1916; background: #1B1916; color: #fff; }
+
+/* ── Stats bar ── */
+.fcp-stats { display: flex; gap: 1px; background: #E8E5E0; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
+.fcp-stat {
+  flex: 1;
+  background: #fff;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.fcp-stat-num { font-size: 20px; font-weight: 700; color: #1B1916; font-variant-numeric: tabular-nums; }
+.fcp-stat-label { font-size: 11px; color: #9E9994; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ── Table ── */
+.fcp-table-wrap { overflow: auto; flex: 1; }
+.fcp-table { width: 100%; border-collapse: collapse; min-width: 860px; }
+.fcp-table thead { position: sticky; top: 0; z-index: 2; }
+.fcp-table th {
+  padding: 10px 14px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #9E9994;
+  background: #F9F8F6;
+  border-bottom: 1px solid #E8E5E0;
+  text-align: left;
+  white-space: nowrap;
+}
+.fcp-table td {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #1B1916;
+  border-bottom: 1px solid #F4F2EE;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fcp-table tbody tr { cursor: pointer; transition: background 0.1s; }
+.fcp-table tbody tr:hover td { background: #F9F8F6; }
+.fcp-table tbody tr.selected td { background: #FFF5F0; }
+
+/* ── Badges ── */
+.fcp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.fcp-conf-bar { display: flex; align-items: center; gap: 7px; }
+.fcp-conf-track { height: 4px; width: 50px; background: #E8E5E0; border-radius: 99px; overflow: hidden; flex-shrink: 0; }
+.fcp-conf-fill { height: 100%; border-radius: 99px; }
+
+/* ── Export buttons ── */
+.fcp-export-btn {
+  padding: 7px 13px;
+  border-radius: 8px;
+  border: 1.5px solid #E8E5E0;
+  background: #fff;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #6B6560;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.fcp-export-btn:hover { border-color: #1B1916; color: #1B1916; }
+
+/* ── Logs drawer ── */
+.fcp-logs-drawer { border-top: 1px solid #E8E5E0; background: #FAFAF9; flex-shrink: 0; }
+.fcp-logs-header {
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9E9994;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  user-select: none;
+}
+.fcp-logs-header:hover { color: #6B6560; }
+.fcp-logs-body { overflow-y: auto; max-height: 160px; padding: 8px 16px 12px; display: flex; flex-direction: column; gap: 2px; }
+.fcp-log-line { font-size: 11.5px; color: #9E9994; font-family: 'DM Mono', monospace; line-height: 1.5; }
+.fcp-log-line.ok { color: #2A7A52; }
+.fcp-log-line.err { color: #B84040; }
+.fcp-log-line.head { color: #C8622A; font-weight: 600; }
+
+/* ── Detail panel ── */
+.fcp-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(27,25,22,0.35);
+  backdrop-filter: blur(3px);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.fcp-backdrop.open { opacity: 1; pointer-events: all; }
+
+.fcp-panel {
+  position: fixed; right: 0; top: 0;
+  width: 440px; height: 100vh;
+  background: #fff;
+  z-index: 50;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -4px 0 32px rgba(27,25,22,0.1);
+}
+.fcp-panel.open { transform: translateX(0); }
+.fcp-panel-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid #F4F2EE;
+  position: sticky; top: 0;
+  background: #fff;
+  z-index: 1;
+  flex-shrink: 0;
+}
+.fcp-panel-name { font-size: 16px; font-weight: 700; color: #1B1916; letter-spacing: -0.3px; line-height: 1.3; margin-bottom: 6px; }
+.fcp-panel-code { font-size: 11.5px; color: #B8B2AA; font-family: 'DM Mono', monospace; margin-bottom: 10px; }
+.fcp-panel-body { overflow-y: auto; flex: 1; }
+.fcp-panel-section { padding: 16px 22px; border-bottom: 1px solid #F9F8F6; }
+.fcp-panel-section:last-child { border-bottom: none; }
+.fcp-section-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #B8B2AA; margin-bottom: 12px; }
+.fcp-field-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 9px; }
+.fcp-field-row:last-child { margin-bottom: 0; }
+.fcp-field-name { font-size: 13px; color: #9E9994; flex-shrink: 0; }
+.fcp-field-val { font-size: 13px; font-weight: 500; color: #1B1916; text-align: right; }
+.fcp-field-val.mono { font-family: 'DM Mono', monospace; font-size: 12.5px; }
+.fcp-field-val.nil { color: #C4BEB8; font-weight: 400; }
+.fcp-field-val.link { color: #2850A0; text-decoration: none; word-break: break-all; }
+.fcp-field-val.link:hover { text-decoration: underline; }
+
+/* Filière verification rows */
+.fcp-filiere-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
+.fcp-filiere-icon { width: 18px; height: 18px; border-radius: 99px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; }
+.fcp-filiere-icon.ok { background: #E0F0E8; color: #2A7A52; }
+.fcp-filiere-icon.no { background: #F5E5E5; color: #B84040; }
+.fcp-filiere-icon.new { background: #E0E8F5; color: #2850A0; }
+.fcp-filiere-name { font-size: 13px; color: #1B1916; flex: 1; }
+.fcp-filiere-status { font-size: 11px; font-weight: 500; }
+.fcp-filiere-status.ok { color: #2A7A52; }
+.fcp-filiere-status.no { color: #B84040; text-decoration: line-through; opacity: 0.7; }
+.fcp-filiere-status.new { color: #2850A0; }
+
+/* Raison box */
+.fcp-raison {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #6B6560;
+  background: #F9F8F6;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.fcp-sources { display: flex; flex-direction: column; gap: 4px; }
+.fcp-source-link { font-size: 11.5px; color: #2850A0; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fcp-source-link:hover { text-decoration: underline; }
+
+/* ── Spinner ── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.fcp-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.25); border-top-color: #fff; border-radius: 99px; animation: spin 0.7s linear infinite; }
+
+/* ── Pulse dot ── */
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.fcp-pulse { animation: pulse-dot 1.5s ease-in-out infinite; }
+
+/* ── Empty state ── */
+.fcp-empty { text-align: center; padding: 60px 24px; color: #B8B2AA; }
+.fcp-empty-icon { font-size: 36px; margin-bottom: 12px; }
+.fcp-empty-title { font-size: 15px; font-weight: 600; color: #9E9994; margin-bottom: 6px; }
+.fcp-empty-sub { font-size: 13px; }
+
+/* ── Details summary reset ── */
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
