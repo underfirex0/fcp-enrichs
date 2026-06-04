@@ -232,7 +232,9 @@ ${hasSectors ? `   Pour chaque secteur coché (listés ci-dessus):
    - filieres_ajoutees: filières découvertes`}
    - filiere_principale: filière dominante (une seule), ou "Hors secteur FCP" si pharma/alimentaire/minier/pétrolier
 
-5. TYPE: "Fabricant"|"Distributeur"|"Importateur"|"Importateur-Distributeur"|"Fabricant-Distributeur"|"Agent/Représentant"|"Négoce"|"Prestataire de services"
+5. TYPE — STRICTEMENT une de ces 8 valeurs EXACTES, rien d'autre, aucune variante:
+   "Fabricant" | "Distributeur" | "Importateur" | "Importateur-Distributeur" | "Fabricant-Distributeur" | "Agent/Représentant" | "Négoce" | "Prestataire de services"
+   ⚠️ INTERDIT: parenthèses, combinaisons libres, texte inventé. UNIQUEMENT ces 8 valeurs mot pour mot.
 
 6. SECTEUR RÉEL: Si "Hors secteur FCP" → décris le vrai secteur (ex: "Industrie pharmaceutique", "Pétrole & hydrocarbures", "Industrie minière", "Agroalimentaire"). Sinon null.
 
